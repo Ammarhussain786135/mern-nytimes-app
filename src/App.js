@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import "./App.css"
+import { Container, Row, Col } from 'react-bootstrap';
+import StoryCard from './components/StoryCard';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-function App() {
+const App = () => {
   const [stories, setStories] = useState([]);
 
   useEffect(() => {
@@ -14,20 +18,18 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <h1>Top Stories from New York Times</h1>
-      <div className="story-cards">
-        {stories.map((story) => (
-          <div key={story.title} className="story-card">
-            <a href={story.url} target="_blank" rel="noopener noreferrer">
-              <img src={story.multimedia[0].url} alt={story.title} />
-              <h2>{story.title}</h2>
-              <p>{story.abstract}</p>
-            </a>
-          </div>
-        ))}
-      </div>
-    </div>
+    <Container className="App">
+      <h1 className='mb-4'>Top Stories from New York Times!</h1>
+      <Row>
+        {stories.map((story) => {
+          return (
+            <Col key={story.title} sm={12} md={6} lg={4}>
+              <StoryCard story={story} />
+            </Col>
+          )
+        })}
+      </Row>
+    </Container>
   );
 }
 
